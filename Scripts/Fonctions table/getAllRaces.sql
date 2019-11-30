@@ -1,0 +1,6 @@
+CREATE FUNCTION fnGetAllRaces ()
+	RETURNS TABLE
+AS
+	RETURN 
+		SELECT DISTINCT Races.RaceID AS ID, Races.RaceName AS Name FROM Races
+	
