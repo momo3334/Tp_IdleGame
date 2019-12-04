@@ -199,6 +199,18 @@ CREATE TABLE CharSpells --This table keeps the character's spells
    CharSpellsSpellID int
 )
 GO
+
+CREATE TABLE Fights --This table keeps track of current Fights
+(
+   FightID int IDENTITY(1,1),
+   FightMonsterName nvarchar(50) NOT NULL,
+   FightMonsterLevel int NOT NULL,
+   FightMonsterHP int NOT NULL,
+   FightMonsterDmg int NOT NULL,
+   FightCharID int NOT NULL
+)
+GO
+
 --DONE CREATING TABLES
 
 
@@ -240,6 +252,8 @@ GO
 ALTER TABLE Classes ADD PRIMARY KEY (ClassID)
 GO
 ALTER TABLE Monsters ADD PRIMARY KEY (MonsterID)
+GO
+ALTER TABLE Fights ADD PRIMARY KEY (FightID)
 GO
 --DONE ADDING PRIMARY KEYS
 
@@ -354,6 +368,10 @@ GO
 ALTER TABLE MonsterBundle ADD CONSTRAINT FK_MonsterBundle_Dungeons FOREIGN KEY (MonsterBundleDungeonID) REFERENCES Dungeons(DungeonID)
 GO
 ALTER TABLE MonsterBundle ADD CONSTRAINT FK_MonsterBundle_Monsters FOREIGN KEY (MonsterBundleMonsterID) REFERENCES Monsters(MonsterID)
+GO
+ALTER TABLE Fights ADD CONSTRAINT FK_Characters_Race FOREIGN KEY (FightMonsterID) REFERENCES Monsters(MonsterID)
+GO
+ALTER TABLE Fights ADD CONSTRAINT FK_Characters_Race FOREIGN KEY (FightCharID) REFERENCES Characters(CharID)
 GO
 --DONE ADDING FOREIGN KEY CONSTRAINT
 

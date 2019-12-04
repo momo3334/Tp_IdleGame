@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Linq;
@@ -18,21 +19,23 @@ namespace BD_IdleGame2
             this.m_cnx = new SqlConnection(connectionString);
         }
 
-        public void executeProc()
+        public String executeSpin(int p_charID, String p_actionString)
         {
-            String sql = "SELECT * FROM fnSpin()";
-            SqlDataReader dataReader;
+            SqlCommand cmd = new SqlCommand("spSpin", this.m_cnx);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@CharID", p_charID);
+
+            SqlParameter returnString = new SqlParameter("@actionString", SqlDbType.NVarChar, 2048);
+            returnString.Value = p_actionString;
+            returnString.Direction = ParameterDirection.Output;
+            cmd.Parameters.Add(returnString);
 
             m_cnx.Open();
-            SqlCommand cmd = new SqlCommand(sql, this.m_cnx);
-
-            dataReader = cmd.ExecuteReader();
-
-            while (dataReader.Read())
-            {
-                Debug.WriteLine(dataReader.GetValue(0) + "" +  dataReader.GetValue(1));
-            }
+            cmd.ExecuteNonQuery();
+            p_actionString = (string) cmd.Parameters["@actionString"].Value;
             m_cnx.Close();
+
+            return p_actionString;
         }
     }
 }

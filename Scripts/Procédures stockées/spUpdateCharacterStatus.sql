@@ -1,0 +1,13 @@
+SET ANSI_NULLS OFF
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE PROCEDURE spSetCharStatus
+	@CharID INT,
+	@Status NVARCHAR(50)
+AS
+BEGIN
+	UPDATE Characters SET CharStatus = @Status WHERE CharID = @CharID
+END
+GO

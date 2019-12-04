@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -17,8 +18,9 @@ namespace BD_IdleGame2
 
         static void Main()
         {
-            SQLExecuter m_sql = new SQLExecuter();
-            m_sql.executeProc();
+            PQAdaptor m_adaptor = new PQAdaptor();
+            Debug.WriteLine(m_adaptor.spin());
+            Debug.WriteLine(m_adaptor.spin());
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new IdleGameGUI());
