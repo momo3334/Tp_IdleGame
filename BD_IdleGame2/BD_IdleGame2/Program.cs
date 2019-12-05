@@ -7,6 +7,11 @@ using System.Windows.Forms;
 
 namespace BD_IdleGame2
 {
+    struct sqlParameter
+    {
+        public string Name;
+        public string Value;
+    }
     static class Program
     {
         /// <summary>
@@ -14,16 +19,12 @@ namespace BD_IdleGame2
         /// </summary>
         [STAThread]
 
-        
-
         static void Main()
         {
-            PQAdaptor m_adaptor = new PQAdaptor();
-            Debug.WriteLine(m_adaptor.spin());
-            Debug.WriteLine(m_adaptor.spin());
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new IdleGameGUI());
         }
+
     }
 }

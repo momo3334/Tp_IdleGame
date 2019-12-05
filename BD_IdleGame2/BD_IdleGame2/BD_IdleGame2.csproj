@@ -61,6 +61,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BD_IdleGameDataSet.cs">
+      <DependentUpon>BD_IdleGameDataSet.xsd</DependentUpon>
+    </Compile>
     <Compile Include="BD_IdleGameDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
