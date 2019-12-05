@@ -15,7 +15,8 @@ namespace BD_IdleGame2
 
         public SQLExecuter()
         {
-            String connectionString = "Server=J-C236-OL-11;Database=BD_IdleGame;User Id=sa;Password = Fgds5612; ";
+            String connectionString = "Server=DESKTOP-8JAK1AT;Database=BD_IdleGame;User Id=sa;Password = Fgds5612; ";
+            //String connectionString = "Server=J-C236-OL-11;Database=BD_IdleGame;User Id=sa;Password = Fgds5612; ";
             this.m_cnx = new SqlConnection(connectionString);
         }
 
@@ -34,6 +35,8 @@ namespace BD_IdleGame2
             cmd.ExecuteNonQuery();
             p_actionString = (string) cmd.Parameters["@actionString"].Value;
             m_cnx.Close();
+
+            Debug.WriteLine(p_actionString);
 
             return p_actionString;
         }

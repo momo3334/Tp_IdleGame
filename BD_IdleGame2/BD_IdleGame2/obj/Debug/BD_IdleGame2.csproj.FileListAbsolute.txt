@@ -8,3 +8,13 @@ P:\CEGEP\3ieme année\Automne 2019\Base de données 2\Travaux Pratiques\BD_IdleG
 P:\CEGEP\3ieme année\Automne 2019\Base de données 2\Travaux Pratiques\BD_IdleGame2\BD_IdleGame2\obj\Debug\BD_IdleGame2.csproj.CoreCompileInputs.cache
 P:\CEGEP\3ieme année\Automne 2019\Base de données 2\Travaux Pratiques\BD_IdleGame2\BD_IdleGame2\obj\Debug\BD_IdleGame2.exe
 P:\CEGEP\3ieme année\Automne 2019\Base de données 2\Travaux Pratiques\BD_IdleGame2\BD_IdleGame2\obj\Debug\BD_IdleGame2.pdb
+E:\documents-datadrive\School\BD2\Travaux Pratiques\Tp_IdleGame\BD_IdleGame2\BD_IdleGame2\bin\Debug\BD_IdleGame2.exe.config
+E:\documents-datadrive\School\BD2\Travaux Pratiques\Tp_IdleGame\BD_IdleGame2\BD_IdleGame2\bin\Debug\BD_IdleGame2.exe
+E:\documents-datadrive\School\BD2\Travaux Pratiques\Tp_IdleGame\BD_IdleGame2\BD_IdleGame2\bin\Debug\BD_IdleGame2.pdb
+E:\documents-datadrive\School\BD2\Travaux Pratiques\Tp_IdleGame\BD_IdleGame2\BD_IdleGame2\obj\Debug\BD_IdleGame2.csprojAssemblyReference.cache
+E:\documents-datadrive\School\BD2\Travaux Pratiques\Tp_IdleGame\BD_IdleGame2\BD_IdleGame2\obj\Debug\BD_IdleGame2.IdleGameGUI.resources
+E:\documents-datadrive\School\BD2\Travaux Pratiques\Tp_IdleGame\BD_IdleGame2\BD_IdleGame2\obj\Debug\BD_IdleGame2.Properties.Resources.resources
+E:\documents-datadrive\School\BD2\Travaux Pratiques\Tp_IdleGame\BD_IdleGame2\BD_IdleGame2\obj\Debug\BD_IdleGame2.csproj.GenerateResource.cache
+E:\documents-datadrive\School\BD2\Travaux Pratiques\Tp_IdleGame\BD_IdleGame2\BD_IdleGame2\obj\Debug\BD_IdleGame2.csproj.CoreCompileInputs.cache
+E:\documents-datadrive\School\BD2\Travaux Pratiques\Tp_IdleGame\BD_IdleGame2\BD_IdleGame2\obj\Debug\BD_IdleGame2.exe
+E:\documents-datadrive\School\BD2\Travaux Pratiques\Tp_IdleGame\BD_IdleGame2\BD_IdleGame2\obj\Debug\BD_IdleGame2.pdb
