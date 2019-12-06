@@ -15,8 +15,8 @@ namespace BD_IdleGame2
 
         public SQLExecuter()
         {
-            //String connectionString = "Server=DESKTOP-8JAK1AT;Database=BD_IdleGame;User Id=sa;Password = Fgds5612; ";
-            String connectionString = "Server=J-C236-OL-11;Database=BD_IdleGame;User Id=sa;Password = Fgds5612; ";
+            String connectionString = "Server=DESKTOP-8JAK1AT;Database=BD_IdleGame;User Id=sa;Password = Fgds5612; ";
+            //String connectionString = "Server=J-C236-OL-11;Database=BD_IdleGame;User Id=sa;Password = Fgds5612; ";
             this.m_cnx = new SqlConnection(connectionString);
         }
 
