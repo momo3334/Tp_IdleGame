@@ -1,0 +1,2 @@
+1- Check level when getting a new quest
+2- Check the equipement weight when checking if we want to sell again
