@@ -110,7 +110,7 @@
             this.lsvInventory.Size = new System.Drawing.Size(382, 822);
             this.lsvInventory.TabIndex = 4;
             this.lsvInventory.UseCompatibleStateImageBehavior = false;
-            this.lsvInventory.View = System.Windows.Forms.View.List;
+            this.lsvInventory.View = System.Windows.Forms.View.Details;
             // 
             // pgrbEncombrement
             // 

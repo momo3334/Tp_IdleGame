@@ -63,6 +63,19 @@ namespace BD_IdleGame2
             return dataTable;
         }
 
+        public DataTable getCurrentInventory(int p_charID)
+        {
+            List<sqlParameter> parameters = new List<sqlParameter>();
+
+            sqlParameter param = new sqlParameter();
+            param.Name = "@charID";
+            param.Value = p_charID.ToString();
+
+            parameters.Add(param);
+            DataTable dataTable = m_executer.executeFuncTable("dbo.fnGetCharInventory", parameters);
+            return dataTable;
+        }
+
         public object[] getCurrentMonsterHP(int p_charID, int p_currrentHP, int p_maxHP)
         {
             return m_executer.getCurrentMonsterHP(p_charID, p_currrentHP, p_maxHP);

@@ -26,6 +26,10 @@ namespace BD_IdleGame2
 
             lsvQuest.Columns.Add("Quêtes", 240, HorizontalAlignment.Left);
             lsvQuest.Columns.Add("Status", -2, HorizontalAlignment.Right);
+
+            lsvInventory.Columns.Add("Item", 125, HorizontalAlignment.Left);
+            lsvInventory.Columns.Add("Quantité", 125, HorizontalAlignment.Left);
+            lsvInventory.Columns.Add("Valeur", 125, HorizontalAlignment.Left);
         }
 
         //Effectue une boucle de la simulation en s'assurant que le temps entre les rafraichissement est approprié
@@ -49,7 +53,7 @@ namespace BD_IdleGame2
 
                 deltaTime = currentTime - prevTime;
 
-                if (deltaTime >= 100)
+                if (deltaTime >= 1000)
                 {
                     Debug.WriteLine("Tick");
                     int changed = 5;
@@ -97,7 +101,7 @@ namespace BD_IdleGame2
             if (p_actionString != "Finis")
             {
                 valueChanged changed = (valueChanged)p_changed;
-                DataTable dataTable;
+
 
                 lsvLog.Items.Add(p_actionString);
                 lsvLog.TopIndex = lsvLog.Items.Count - 1;
@@ -105,94 +109,22 @@ namespace BD_IdleGame2
                 {
                     //Si les quetes du personnage ont changé
                     case valueChanged.quest:
-                        dataTable = m_adaptor.getCurrentQuests(1);
-                        foreach (DataRow row in dataTable.Rows)
-                        {
-                            String questName = "";
-                            questName = row[0].ToString();
-
-                            ListViewItem newItem = new ListViewItem(questName);
-
-                            String completed = row[1].ToString();
-                            if (completed == "True")
-                            {
-                                completed = "Completée";
-                            }
-                            else
-                            {
-                                completed = "En cours";
-                            }
-                            newItem.SubItems.Add(completed);
-
-                            ListViewItem test = lsvQuest.FindItemWithText(questName);
-                            if (test == null)
-                            {
-                                lsvQuest.Items.Add(newItem);
-                                Console.WriteLine(questName);
-                            }
-                            else
-                            {
-                                if (test.SubItems[1].Text != completed)
-                                {
-                                    test.SubItems[1].Text = completed;
-                                }
-                            }
-                        }
+                        updateQuests();
                         break;
+                    //Si l'inventaire du personnages on changés
                     case valueChanged.inventaire:
+                        updateInventory();
                         break;
                     //Si les stats du personnages on changés
                     case valueChanged.stats:
-                        dataTable = m_adaptor.getCurrentStats(1);
-                        int columnHP = dataTable.Columns.IndexOf("CharHP");
-                        int columnMaxHP = dataTable.Columns.IndexOf("CharMaxHP");
-                        int columnStrenght = dataTable.Columns.IndexOf("CharStr");
-                        int columnDex = dataTable.Columns.IndexOf("CharDex");
-                        int columnCon = dataTable.Columns.IndexOf("CharCon");
-                        double currentHP;
-                        double maxHP;
-                        double strenght;
-                        double dex;
-                        double con;
-                        Double.TryParse(dataTable.Rows[0][columnHP].ToString(), out currentHP);
-                        Double.TryParse(dataTable.Rows[0][columnMaxHP].ToString(), out maxHP);
-                        Double.TryParse(dataTable.Rows[0][columnStrenght].ToString(), out strenght);
-                        Double.TryParse(dataTable.Rows[0][columnDex].ToString(), out dex);
-                        Double.TryParse(dataTable.Rows[0][columnCon].ToString(), out con);
-
-                        int hpPercent = (int)((currentHP / maxHP) * 100);
-
-                        lblStr.Text = strenght.ToString();
-                        lblDex.Text = dex.ToString();
-                        lblConst.Text = con.ToString();
-
-                        pgrbHealt.Value = hpPercent;
-                        pgrbHealt.Refresh();
-
-
+                        updateCharStats();
                         break;
                     case valueChanged.statsMonstre:
-                        int monsterCurrentHP = 0;
-                        int monsterMaxHP = 0;
-                        object[] monsterHPValues = m_adaptor.getCurrentMonsterHP(1, monsterCurrentHP, monsterMaxHP);
-
-                        monsterCurrentHP = Convert.ToInt32(monsterHPValues[0]);
-                        monsterMaxHP = Convert.ToInt32(monsterHPValues[1]);
-
-
-                        //rafrachie la barre de progression
-                        if (monsterMaxHP > 0)
-                        {
-                            int MonsterHpPercent = (int)(((double)monsterCurrentHP / (double)monsterMaxHP) * 100.0);
-                            pgrbMonsterHP.Value = MonsterHpPercent;
-                        }
-                        else
-                        {
-                            pgrbMonsterHP.Value = 0;
-                        }
-
-                        Console.WriteLine(monsterCurrentHP);
-                        Console.WriteLine(monsterMaxHP);
+                        updateMonsterStats();
+                        break;
+                    case valueChanged.statsInventaire:
+                        updateInventory();
+                        updateCharStats();
                         break;
                     default:
                         break;
@@ -204,6 +136,141 @@ namespace BD_IdleGame2
                 lsvLog.Items.Add("Vous avez terminé le jeu! Merci d'avoir jouer");
             }
 
+        }
+
+        private void updateCharStats()
+        {
+            DataTable dataTable;
+            dataTable = m_adaptor.getCurrentStats(1);
+            int columnHP = dataTable.Columns.IndexOf("CharHP");
+            int columnMaxHP = dataTable.Columns.IndexOf("CharMaxHP");
+            int columnWeight = dataTable.Columns.IndexOf("CharWeight");
+            int columnStrenght = dataTable.Columns.IndexOf("CharStr");
+            int columnDex = dataTable.Columns.IndexOf("CharDex");
+            int columnCon = dataTable.Columns.IndexOf("CharCon");
+            double currentHP;
+            double maxHP;
+            double strenght;
+            double dex;
+            double con;
+            double weight;
+            Double.TryParse(dataTable.Rows[0][columnHP].ToString(), out currentHP);
+            Double.TryParse(dataTable.Rows[0][columnMaxHP].ToString(), out maxHP);
+            Double.TryParse(dataTable.Rows[0][columnStrenght].ToString(), out strenght);
+            Double.TryParse(dataTable.Rows[0][columnDex].ToString(), out dex);
+            Double.TryParse(dataTable.Rows[0][columnCon].ToString(), out con);
+            Double.TryParse(dataTable.Rows[0][columnWeight].ToString(), out weight);
+
+            int hpPercent = (int)((currentHP / maxHP) * 100);
+            int weightPercent = (int)((weight / 100) * 100);
+
+            lblStr.Text = strenght.ToString();
+            lblDex.Text = dex.ToString();
+            lblConst.Text = con.ToString();
+
+            pgrbHealt.Value = hpPercent;
+            pgrbHealt.Refresh();
+
+            pgrbEncombrement.Value = weightPercent;
+            pgrbEncombrement.Refresh();
+        }
+
+        private void updateMonsterStats()
+        {
+            int monsterCurrentHP = 0;
+            int monsterMaxHP = 0;
+            object[] monsterHPValues = m_adaptor.getCurrentMonsterHP(1, monsterCurrentHP, monsterMaxHP);
+
+            monsterCurrentHP = Convert.ToInt32(monsterHPValues[0]);
+            monsterMaxHP = Convert.ToInt32(monsterHPValues[1]);
+
+
+            //rafrachie la barre de progression
+            if (monsterMaxHP > 0)
+            {
+                int MonsterHpPercent = (int)(((double)monsterCurrentHP / (double)monsterMaxHP) * 100.0);
+                pgrbMonsterHP.Value = MonsterHpPercent;
+            }
+            else
+            {
+                pgrbMonsterHP.Value = 0;
+            }
+
+            Console.WriteLine(monsterCurrentHP);
+            Console.WriteLine(monsterMaxHP);
+            
+        }
+
+        private void updateQuests()
+        {
+            DataTable dataTable;
+            dataTable = m_adaptor.getCurrentQuests(1);
+            foreach (DataRow row in dataTable.Rows)
+            {
+                String questName = "";
+                questName = row[0].ToString();
+
+                ListViewItem newItem = new ListViewItem(questName);
+
+                String completed = row[1].ToString();
+                if (completed == "True")
+                {
+                    completed = "Completée";
+                }
+                else
+                {
+                    completed = "En cours";
+                }
+                newItem.SubItems.Add(completed);
+
+                ListViewItem test = lsvQuest.FindItemWithText(questName);
+                if (test == null)
+                {
+                    lsvQuest.Items.Add(newItem);
+                    Console.WriteLine(questName);
+                }
+                else
+                {
+                    if (test.SubItems[1].Text != completed)
+                    {
+                        test.SubItems[1].Text = completed;
+                    }
+                }
+            }
+        }
+
+        private void updateInventory()
+        {
+            DataTable dataTable;
+            dataTable = m_adaptor.getCurrentInventory(1);
+            int columnName = dataTable.Columns.IndexOf("LootName");
+            int columnQty = dataTable.Columns.IndexOf("CharLootQty");
+            int columnValue = dataTable.Columns.IndexOf("LootValue");
+
+            foreach (DataRow row in dataTable.Rows)
+            {
+                String name = dataTable.Rows[0][columnName].ToString();
+                String qty = dataTable.Rows[0][columnQty].ToString();
+                String value = dataTable.Rows[0][columnValue].ToString();
+
+                ListViewItem newItem = new ListViewItem(name);
+                newItem.SubItems.Add(qty);
+                newItem.SubItems.Add(value);
+
+                ListViewItem test = lsvInventory.FindItemWithText(name);
+                if (test == null)
+                {
+                    lsvInventory.Items.Add(newItem);
+                    Console.WriteLine(name);
+                }
+                else
+                {
+                    if (test.SubItems[columnQty].Text != qty)
+                    {
+                        test.SubItems[columnQty].Text = qty;
+                    }
+                }
+            }
         }
 
         private void Button1_Click(object sender, EventArgs e)
