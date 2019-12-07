@@ -1,0 +1,4 @@
+CREATE FUNCTION fnGetAllDungeons() RETURNS TABLE
+
+AS
+RETURN SELECT * FROM BD_IdleGame[Dungeons]

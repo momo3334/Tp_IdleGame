@@ -28,8 +28,8 @@ namespace BD_IdleGame2
             lsvQuest.Columns.Add("Status", -2, HorizontalAlignment.Right);
 
             lsvInventory.Columns.Add("Item", 125, HorizontalAlignment.Left);
-            lsvInventory.Columns.Add("Quantité", 125, HorizontalAlignment.Left);
-            lsvInventory.Columns.Add("Valeur", 125, HorizontalAlignment.Left);
+            lsvInventory.Columns.Add("Quantité", 100, HorizontalAlignment.Left);
+            lsvInventory.Columns.Add("Valeur", -2, HorizontalAlignment.Left);
         }
 
         //Effectue une boucle de la simulation en s'assurant que le temps entre les rafraichissement est approprié
@@ -56,7 +56,7 @@ namespace BD_IdleGame2
                 if (deltaTime >= 1000)
                 {
                     Debug.WriteLine("Tick");
-                    int changed = 5;
+                    int changed = 6;
 
                     object[] returnedObj = m_adaptor.spin(changed);
 
@@ -68,7 +68,7 @@ namespace BD_IdleGame2
                     prevTime = currentTime;
                 }
 
-                int progression = (int)(((double)deltaTime / 100.0) * 100);
+                int progression = (int)(((double)deltaTime / 1000.0) * 100);
 
                 updateTimer = delegate { updateProgressBar(progression); };
                 this.Invoke(updateTimer);
@@ -122,9 +122,14 @@ namespace BD_IdleGame2
                     case valueChanged.statsMonstre:
                         updateMonsterStats();
                         break;
-                    case valueChanged.statsInventaire:
-                        updateInventory();
+                    case valueChanged.monstreCharStats:
                         updateCharStats();
+                        pgrbMonsterHP.Value = 0;
+                        break;
+                    case valueChanged.questMonstreChar:
+                        updateQuests();
+                        pgrbMonsterHP.Value = 0;
+                        updateMonsterStats();
                         break;
                     default:
                         break;
@@ -170,6 +175,7 @@ namespace BD_IdleGame2
 
             pgrbHealt.Value = hpPercent;
             pgrbHealt.Refresh();
+
 
             pgrbEncombrement.Value = weightPercent;
             pgrbEncombrement.Refresh();
@@ -275,6 +281,9 @@ namespace BD_IdleGame2
 
         private void Button1_Click(object sender, EventArgs e)
         {
+            updateCharStats();
+            updateInventory();
+            updateQuests();
             this.m_simulation.Start();
         }
     }

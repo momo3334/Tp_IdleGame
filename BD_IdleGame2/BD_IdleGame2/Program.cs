@@ -14,7 +14,7 @@ namespace BD_IdleGame2
     }
 
     //Enum that defines what values have changed and therefore need to be updated on the form
-    public enum valueChanged { quest = 0, inventaire = 1, stats = 2, statsMonstre = 3, statsInventaire = 4 }
+    public enum valueChanged { quest = 0, inventaire = 1, stats = 2, statsMonstre = 3, statsInventaire = 4, monstreCharStats = 5, questMonstreChar = 6}
 
     static class Program
     {

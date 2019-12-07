@@ -1,0 +1,14 @@
+SET ANSI_NULLS OFF
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE FUNCTION fnGetCharWeight(@CharID INT)
+RETURNS INT
+AS
+BEGIN
+	DECLARE @currentWeight INT
+	SET @currentWeight = (SELECT CharWeight FROM Characters WHERE (CharID = @CharID))
+	RETURN @currentWeight
+END
+GO
